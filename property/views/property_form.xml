@@ -1,0 +1,64 @@
+<odoo>
+    <data>
+        <record model="ir.ui.view" id="property_form">
+            <field name="name">propiedades</field>
+            <field name="model">property.realstate</field>
+            <field name="arch" type="xml">
+                <form string="nueva propiedad">
+                    <header>
+                        <button name="action_sold" string="SOLD" type="object"  states="sold" class="oe_highlight" attrs="{'invisible': [('state', '=', 'sold')]}"/>
+                        <button name="action_cancel_property" string="CANCEL" states="cancel" type="object" class="oe_highlight" attrs="{'invisible': [('state', '=', 'cancel')]}"/>
+                    </header>
+                    <sheet>
+                        <group name="group_top">
+                            <group name="group_left">
+                                <field name="name"/>
+                                <field name="description"/>
+                                <field name="postcode"/>
+                                <field name="date_availability"/>
+                                <field name="expected_price"/>
+                                <field name="selling_price"/>
+                                <field name="best_price"/>
+                                <field name="bedrooms"/>
+                                <form>
+                                    <sheet>
+                                        <group>
+                                            <field name="tag_ids" widget="many2many"/>
+                                        </group>
+                                    </sheet>
+                                </form>
+                            </group>
+                            <group name="group_right">
+                                <field name="living_area"/>
+                                <field name="facades"/>
+                                <field name="garage"/>
+                                <field name="garden"/>
+                                <field name="garden_area"/>
+                                <field name="garden_orientation"/>
+                                <field name="property_type_id" widget="Many2one" can_create="true" can_write="true"/>
+                                <field name="total_area"/>
+                                <field name="best_price"/>
+                                <field name="state"/>
+                            </group>
+                        </group>
+                    </sheet>
+                </form>
+                  <form>
+                        <sheet>
+                            <group>
+                                <field name="offers" widget="One2many" options="{'form_view_ref':'property.offer_form'}" attrs="{'invisible': [('state', '=', ('sold', 'cancel'))]}"/>
+                            </group>
+                        </sheet>
+                    </form>
+            </field>
+        </record>        
+        <record id="action_property_form" model="ir.actions.act_window">
+            <field name="name">realstate</field>
+            <field name="res_model">property.realstate</field>
+            <field name="view_mode">form</field>
+            <field name="view_id" ref="property_form"/>
+        </record>
+        <menuitem id="menu_property_form" name="property" action="action_property_form"/>
+    </data>
+</odoo>
+

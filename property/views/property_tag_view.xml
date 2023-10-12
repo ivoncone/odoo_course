@@ -1,0 +1,36 @@
+<odoo>
+    <data>
+        <record id="tag_tree" model="ir.ui.view">
+            <field name="name">tag</field>
+                <field name="model">property.tag</field>
+                <field name="arch" type="xml">
+                    <tree>
+                        <field name="name"/>
+                        <field name="color_id"/>
+                    </tree>
+                </field>
+        </record>
+        <record model="ir.ui.view" id="tag_form">
+            <field name="name">tag.form</field>
+            <field name="model">property.tag</field>
+            <field name="arch" type="xml">
+                <form string="nuevo tag">
+                    <sheet>
+                        <div class="oe_title">
+                            <h1><field nolabel="1" name="name"/></h1>
+                        </div>
+                        <group >
+                            <field name="name" can_create="true" can_write="true"/>
+                            <field name="color_id" widget="color_picker"/>
+                        </group>
+                    </sheet>
+                </form>
+            </field>
+        </record>
+        <record id="tag_action_tree" model="ir.actions.act_window" >
+            <field name="name">Tags</field>
+            <field name="res_model">property.tag</field>
+            <field name="view_mode">tree,form</field>
+        </record>
+    </data>
+</odoo>
