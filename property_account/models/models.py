@@ -5,4 +5,4 @@ class PropertyAccount(models.Model):
 	_description = 'Realstate accout'
 
 	property_id = fields.Many2one('property.realstate', string='Propiedad')
-	account_id = fields.Many2one('res.users', string='Cuenta')
+	partner_id = fields.Many2one('res.partner', string='Cuenta')

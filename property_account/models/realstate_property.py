@@ -1,11 +1,11 @@
 from odoo import api, models 
 
 class RealstateProperty(models.Model):
-	_inherit = 'property.realstate'
+	_inherit = 'property.account'
 
 	def action_sold(self):
 		move_obj = self.env['account.move']
-		user_id = self.user_id
+		partner_id = self.partner_id
 
 		values = {
 			'user_id': user_id.id;
