@@ -1,0 +1,37 @@
+<odoo>
+	<data>
+        <record id="property_type_tree" model="ir.ui.view">
+                <field name="name">type.tree</field>
+                <field name="model">property.type</field>
+                <field name="arch" type="xml">
+                    <tree string="Tipos de propiedad">
+                        <field name="name"/>
+                        <field name="offer_ids"/>
+                    </tree>
+                </field>
+        </record>
+		<record id="property_type_form" model="ir.ui.view">
+            <field name="name">type.form</field>
+            <field name="model">property.type</field>
+            <field name="arch" type="xml">
+                <form>
+                    <button name="offer_count" string="Stat" type="object" class="oe_stat_button"/>
+                        <field name="property_id">
+                            <tree string="Propiedades" edit="bottom">
+                                <field name="name"/>
+                                <field name="expected_price"/>
+                                <field name="active"/>
+                                <field name="state" widget="statusbar" statusbar_visible="sold, cancel"/>
+                            </tree>
+                        </field>
+                </form>
+            </field>
+        </record>
+        <record id="action_type_tree" model="ir.actions.act_window">
+            <field name="name">Type</field>
+            <field name="res_model">property.offer</field>
+            <field name="view_mode">tree,form</field>
+             <field name="domain">[('offer_ids', '=', active_id)]</field>
+        </record>
+	</data>
+</odoo>
