@@ -46,13 +46,15 @@ class Offer(models.Model):
 	def refuse(self):
 		self.write({'state': 'R'})
 
-	api.model
+	# define create offer with condition price not lower than minimun offer in data
+	@api.model
 	def create(self, vals):
-		min_offer = self.env['property.offer'].search([], order='price', limit=1)
-		print(min_offer)
-		if  vals['price'] < min_offer.price:
-			raise ValidationError("El precio no puede ser menor a los que ya se han ofertado.")
-		return super(Offer, self).create(vals)
-
+		price = vals.get('price')
+		min_price = self.env['property.offer'].search([]).mapped('price')
+		if min_price:
+			min_amount = min(min_price)
+			if price < min_amount:
+				raise ValidationError("N puedes crear una oferta menor a una ya ofertada.")
+			return super(Offer, self).create(vals)
 
 	

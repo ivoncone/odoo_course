@@ -26,8 +26,8 @@
                                 <field name="facades"/>
                                 <field name="garage"/>
                                 <field name="garden"/>
-                                <field name="garden_area" attrs="{'readonly': [('garden', '=', True)]}"/>
-                                <field name="garden_orientation" attrs="{'readonly': [('garden', '=', True)]}"/>
+                                <field name="garden_area" attrs="{'invisible': [('garden', '=', False)]}"/>
+                                <field name="garden_orientation" attrs="{'invisible': [('garden', '=', False)]}"/>
                                 <field name="property_type_id" widget="many2one"/>
                                 <field name="total_area"/>
                                 <field name="best_price"/>

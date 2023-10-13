@@ -47,6 +47,7 @@ class RealState(models.Model):
 		], default='available')
 	active = fields.Boolean(default=True)
 
+
 	_sql_constraints = [
 		('unique_property_type', 'UNIQUE (property_type_id)', 'Property type must be unique'),
 		('unique_tag_name', 'UNIQUE (tag_ids)', 'Tag must be unique'),

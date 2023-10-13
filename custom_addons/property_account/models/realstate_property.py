@@ -1,7 +1,6 @@
 from odoo import api, models 
 
-class RealstateProperty(models.Model):
-	_inherit = 'property.account'
+class PAyment(models.Model):
 
 	def action_sold(self):
 		move_obj = self.env['account.move']

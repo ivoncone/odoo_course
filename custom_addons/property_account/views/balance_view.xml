@@ -1,0 +1,23 @@
+<odoo>
+    <data>
+        <record id="balance_form" model="ir.ui.view">
+                <field name="name">balance.form</field>
+                <field name="model">property.balance</field>
+                <field name="arch" type="xml">
+                    <form>
+                        <sheet>
+                            <group>
+                                <field name="amount"/>
+                            </group>
+                        </sheet>
+                    </form>
+                </field>
+        </record>
+        <record id="action_balance_form" model="ir.actions.act_window">
+            <field name="name"></field>
+            <field name="res_model"></field>
+            <field name="view_mode">form</field>
+        </record>
+        <menuitem id="menu_balance" name="menu balance"/>
+    </data>
+</odoo>

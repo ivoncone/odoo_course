@@ -1,8 +1,9 @@
 from odoo import models, fields
 
-class PropertyAccount(models.Model):
-	_name = 'property.accout'
-	_description = 'Realstate accout'
+class PropertyBalance(models.Model):
+	_name = 'property.balance'
+	_description = 'Realstate Balance Account'
+	
 
-	property_id = fields.Many2one('property.realstate', string='Propiedad')
-	account_id = fields.Many2one('res.partner', string='Cuenta')
+
+	amount = fields.Float()
