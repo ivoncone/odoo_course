@@ -1,7 +1,7 @@
 <odoo>
     <data>
-        <record id="view_property" model="ir.ui.view">
-            <field name="name">realstate.tree</field>
+        <record id="property_view" model="ir.ui.view">
+            <field name="name">property.tree</field>
             <field name="model">property.realstate</field>
             <field name="arch" type="xml">
                 <tree string="Datos de propiedad" decoration-muted="state == 'sold'" decoration-success="best_price > 1">

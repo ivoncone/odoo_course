@@ -6,8 +6,8 @@
             <field name="arch" type="xml">
                 <form string="nueva propiedad">
                     <header>
-                        <button name="action_sold" string="SOLD" type="object"  states="sold" class="oe_highlight" attrs="{'invisible': [('state', '=', 'sold')]}"/>
-                        <button name="action_cancel_property" string="CANCEL" states="cancel" type="object" class="oe_highlight" attrs="{'invisible': [('state', '=', 'cancel')]}"/>
+                        <button name="action_sold" string="SOLD" type="object"  states="sold" class="oe_highlight" attrs="{'invisible':[('state','=','Sold')]}"/>
+                        <button name="action_cancel_property" string="CANCEL" states="cancel" type="object" class="oe_highlight" attrs="{'invisible': [('state', '=', 'Cancelled')]}"/>
                     </header>
                     <sheet>
                         <group name="group_top">
@@ -30,7 +30,6 @@
                                 <field name="garden_orientation" attrs="{'invisible': [('garden', '=', False)]}"/>
                                 <field name="property_type_id" widget="many2one"/>
                                 <field name="total_area"/>
-                                <field name="best_price"/>
                                 <field name="state"/>
                             </group>
                         </group>
@@ -51,11 +50,39 @@
                     </sheet>
                 </form>
             </field>
-        </record>      
+        </record> 
+        <record id="property_kanban" model="ir.ui.view">
+            <field name="name">realstate.kanban</field>
+            <field name="model">property.realstate</field>
+            <field name="arch" type="xml">
+                <kanban default_group_by="property_type_id">
+                    <field name="property_type_id"/>
+                <templates>
+                    <t t-name="kanban-box">
+                        <div class="oe_kanban_global_click">
+                                <field name="name"/>
+                                <div>
+                                    <field name="expected_price"/>
+                                </div>
+                                <div t-if="record.best_price > 1">
+                                    <field name="best_price"/>
+                                </div>
+                                <div t-if="record.selling_price > 1">
+                                    <field name="selling_price"/>
+                                </div>
+                                <div>
+                                    <field name="tag_ids"/>
+                                </div>
+                        </div>
+                    </t>
+                </templates>
+                </kanban>
+            </field>
+        </record>     
         <record id="action_property_form" model="ir.actions.act_window">
-            <field name="name">Realstate</field>
+            <field name="name">Realstate Form</field>
             <field name="res_model">property.realstate</field>
-            <field name="view_mode">tree,form</field>
+            <field name="view_mode">tree,form,kanban</field>
         </record>
         <menuitem id="menu_property_form" name="property" action="property.action_property_form"/>
     </data>

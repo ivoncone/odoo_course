@@ -9,7 +9,8 @@
                         <field name="partner_id"/>
                         <field name="validity"/>
                         <field name="date_deadline"/>
-                        <field name="state" invisible="1"/>
+                        <field name="is_accepted"/>
+                        <field name="state" attrs="{'invisible':[('is_accepted', '=', True)]}"/>
                         <field name="property_type_id"/>
                     </tree>
                 </field>
@@ -22,12 +23,12 @@
                     <sheet>
                         <group >
                             <field name="price" />
-                            <button name="accept_offer" string="accept" states="Accepted" type="object" icon="fa-check" attrs="{'invisible': [('state', '=', 'A')]}"/>
-                            <button name="refuse" string="refuse" states="Refused" type="object" icon="fa-check" attrs="{'invisible': [('state', '=', 'R')]}"/>
+                            <button name="accept_offer" string="accept" states="Accepted" type="object" icon="fa-check"/>
+                            <button name="refuse" string="refuse" states="Refused" type="object" icon="fa-check" attrs="{'invisible': [('state', '=', 'A')]}"/>
                             <field name="partner_id" widget="many2one"/>
                             <field name="validity"/>
                             <field name="date_deadline"/>
-                            <property name="property_type_id" widget="Many2one"/>
+                            <field name="property_type_id" widget="Many2one"/>
                             <field name="state"/>
                         </group>
                     </sheet>

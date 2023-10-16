@@ -10,6 +10,7 @@ class Offer(models.Model):
 
 	price = fields.Float()
 	state = fields.Selection([('A', 'Accepted'), ('R', 'Refused')])
+	is_accepted = fields.Boolean()
 	partner_id = fields.Many2one('res.partner', string='Partner')
 	validity = fields.Integer(default=7)
 	date_deadline = fields.Date(string='Vencimiento de oferta', 
@@ -20,6 +21,15 @@ class Offer(models.Model):
 		related='property_id.property_type_id', 
 		string='tipo de propiedad', 
 		store=True)
+
+	# Invisible accept and refused buttons 
+	@api.onchange('is_accepted', 'state')
+	def _set_is_accepted(self):
+		for record in self:
+			if record.state == 'Accepted' or 'A':
+				self.write({
+					'is_accepted': True
+					})
 
 	# define date deadline expiration
 	def _get_deadline(self):
@@ -37,16 +47,16 @@ class Offer(models.Model):
 
 	# define refuse and accept actions
 	def accept_offer(self):
-		selling_price = property_id.selling_price
 		self.write({'state': 'A',
-					'partner_id': 'partner_id',
-					'property_id': 'property_id',
-					'selling_price': 'price'})
+					'partner_id': self.partner_id,
+					'property_id': self.property_id,
+					'price': price})
 
 	def refuse(self):
 		self.write({'state': 'R'})
 
 	# define create offer with condition price not lower than minimun offer in data
+	"""
 	@api.model
 	def create(self, vals):
 		price = vals.get('price')
@@ -56,5 +66,6 @@ class Offer(models.Model):
 			if price < min_amount:
 				raise ValidationError("N puedes crear una oferta menor a una ya ofertada.")
 			return super(Offer, self).create(vals)
+	"""
 
 	

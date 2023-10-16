@@ -9,7 +9,8 @@
                         <field name="partner_id"/>
                         <field name="validity"/>
                         <field name="date_deadline"/>
-                        <field name="state"/>
+                         <field name="is_accepted" invisible="1"/>
+                        <field name="state" attrs="{'invisible':[('is_accepted', '=', True)]}"/>
                         <field name="property_type_id"/>
                     </tree>
                 </field>
