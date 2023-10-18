@@ -5,6 +5,7 @@
                 <field name="model">property.offer</field>
                 <field name="arch" type="xml">
                     <tree string="Ofertas" editable="bottom" decoration-success="state == 'A'" decoration-danger="state == 'R'">
+                        <field name="property_id"/>
                         <field name="price"/>
                         <field name="partner_id"/>
                         <field name="validity"/>

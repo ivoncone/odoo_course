@@ -1,6 +1,5 @@
 from odoo import fields, models, api
 from odoo.exceptions import ValidationError
-from odoo.tools.float_utils import float_compare, float_is_zero
 
 from datetime import timedelta, datetime
 
@@ -57,11 +56,13 @@ class Offer(models.Model):
 		self.write({'state': 'R'})
 
 	
-	@api.constrains('price', 'property_id')
+	@api.constrains('price')
 	def _create_offer(self):
 		for record in self:
-			if record.price < min(self.search([('id', '!=', record.property_id)]).mapped('price')):
-				raise ValidationError("Oferta no puede ser agregada.")
+			offers = self.search([('id', '!=', record.id), ('property_id', '=', record.property_id.id)])
+			for offer in offers:
+				if offer.price > record.price: 
+					raise ValidationError("Oferta no puede ser menor a una ya ofertada.")
 	
 		
 

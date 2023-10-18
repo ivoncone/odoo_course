@@ -21,28 +21,30 @@ class PropertyBalance(models.Model):
 		#calculate the amount for each variable
 		price = selling_price * percentage
 		fee = administrative_fee
+		#invoice lines 
+		lines = [ 
+					{
+						'name': "Property Sale 6% of selling price",
+						'quantity': 1,
+						'price_unit': price,					
+						'account_id': 1
+					},
+					{
+						'name': "administrative Free",
+						'quantity': 1,
+						'price_unit': fee,
+						'account_id': 1
+					}
+				]
 		# create move
-		move = self.env['account.move'].create({
+		move = self.env['account.move'].write({
 				'move_type': move_type,
 				'partner_id': socio,
 				'journal_id': 1,
+				'invoice_line_ids': [(0, 0, line) for line in lines]
 			})
-		# create invoice lines
-		self.env['account.move.line'].create({
-				'move_id': move.id,
-				'name': "Property Sale 6% of selling price",
-				'quantity': 1,
-				'price_unit': price,
-				'account_id': 1
-				})
-		self.env['account.move.line'].create({
-				'move_id': move.id,
-				'name': "administrative Free",
-				'quantity': 1,
-				'price_unit': fee,
-				'account_id': 1
-				})
-		
+
+		print('Creando factura....')
 		return sold
 
 

@@ -1,7 +1,9 @@
 from odoo import fields, models, api
 from odoo.exceptions import ValidationError
+from odoo.tools.float_utils import float_compare, float_is_zero
 
 from datetime import timedelta, datetime
+
 
 class RealState(models.Model):
 	_name = 'property.realstate'
@@ -150,6 +152,17 @@ class RealState(models.Model):
 			tag_ids = record.tag_ids.ids
 			if len(tag_ids) != len(set(tag_ids)):
 				raise ValidationError("You can repeat tags already existing.")
+
+	# Define offer price can't be 90% lower than expected price
+	@api.constrains('selling_price')
+	def _offer_ninety_high(self):
+		for record in self:
+			if float_is_zero(record.selling_price, precision_digits=2):
+				continue 
+			expected_price = record.expected_price
+			if not float_compare(record.selling_price, expected_price * 0.9, precision_digits=2) >= 0:
+				raise ValidationError("No puedes hacer una oferta con un precio menor al 90% del expected price.")
+
 
 	#define prevent from delete
 	@api.ondelete(at_uninstall=False)

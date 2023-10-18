@@ -12,7 +12,7 @@ class PropertyType(models.Model):
 	sequence = fields.Integer('Sequence', default=1)
 	property_id = fields.One2many('property.realstate', 'property_type_id', string='propiedades')
 	offer_ids = fields.One2many('property.offer', 'property_type_id', string='Ofertas')
-	offer_count = fields.Integer(string='Numero de ofertas')
+	offer_count = fields.Integer(string='Numero de ofertas', compute='_get_best_offer', store=True)
 
 	
 	# compute offers count
@@ -20,19 +20,17 @@ class PropertyType(models.Model):
 		tipo = self.name
 		offers_with_same_type = self.env['property.offer'].search([('property_type_id', '=', tipo)])
 		count = len(offers_with_same_type)
-		print(f"propertty_type_id {tipo}: {count} items")
+		self.write({'offer_count': count})
+		print(f"property_type_id {tipo}: {count} ofertas")
 
-	def show_offers_count(self):
+	def show_offers(self):
 		self._get_offer_count()
-		count = self.offer_count
-		message = f'Las ofertas son: {count}'
 		return {
 			'type': 'ir.actions.act_window',
 			'name': 'Offer Count',
 			'res_model': 'property.offer',
 			'view_mode': 'tree',
 			'res_id': self.id,
-			'context': {'default_name': message}
 		}
 
 
