@@ -8,32 +8,33 @@ class PropertyType(models.Model):
 	_description = 'tipo de propiedad'
 	_order = 'name'
 
-	name = fields.Char(required=True)
+	name = fields.Char()
 	sequence = fields.Integer('Sequence', default=1)
 	property_id = fields.One2many('property.realstate', 'property_type_id', string='propiedades')
 	offer_ids = fields.One2many('property.offer', 'property_type_id', string='Ofertas')
-	offer_count = fields.Integer(string='Numero de ofertas', compute='_compute_offer_count', store=True)
+	offer_count = fields.Integer(string='Numero de ofertas')
 
-# compute offers count
-	@api.depends('offer_ids')
-	def offer_count(self):
-		for record in self:
-			record.offer_count = len(record.offer_ids)
-			self.write({'offer_count': record.offer_count})
+	
+	# compute offers count
+	def _get_offer_count(self):
+		tipo = self.name
+		offers_with_same_type = self.env['property.offer'].search([('property_type_id', '=', tipo)])
+		count = len(offers_with_same_type)
+		print(f"propertty_type_id {tipo}: {count} items")
 
-	print(offer_count)
-
-	def action_show_offers(self):
-		action = {
-			'name': 'View Offer',
+	def show_offers_count(self):
+		self._get_offer_count()
+		count = self.offer_count
+		message = f'Las ofertas son: {count}'
+		return {
 			'type': 'ir.actions.act_window',
-			'res_model': 'property.property_type_id',
+			'name': 'Offer Count',
+			'res_model': 'property.offer',
 			'view_mode': 'tree',
-			'view_id': self.env.ref('property.offer_view').id,
 			'res_id': self.id,
+			'context': {'default_name': message}
 		}
 
-		return action
 
 
 			

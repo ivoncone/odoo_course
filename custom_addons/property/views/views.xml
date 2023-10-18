@@ -14,7 +14,7 @@
                   <field name="selling_price"/>
                   <field name="best_price"/>
                   <field name="bedrooms"/>
-                  <field name="tag_ids"/>
+                  <field name="tag_ids" widget="many2many_tags" options="{'color_field': 'color_id', 'no_quick_create': True}"/>
                   <field name="offers"/>
                   <field name="living_area"/>
                   <field name="facades"/>

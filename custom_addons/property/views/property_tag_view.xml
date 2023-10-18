@@ -5,8 +5,7 @@
                 <field name="model">property.tag</field>
                 <field name="arch" type="xml">
                     <tree string="tags" editable="bottom">
-                        <field name="name"/>
-                        <field name="color_id"/>
+                        <field name="name" widget="many2many_tags" options="{'color_field': 'color_id'}"/>
                     </tree>
                 </field>
         </record>

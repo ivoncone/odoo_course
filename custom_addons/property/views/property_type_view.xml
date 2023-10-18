@@ -4,10 +4,14 @@
                 <field name="name">type.tree</field>
                 <field name="model">property.type</field>
                 <field name="arch" type="xml">
+                <form>
+                    <header>
+                        <button name="show_offers_count" string="Stat" type="object" class="oe_stat_button"/>
+                    </header>
                     <tree string="Tipos de propiedad">
-                        <field name="sequence" widget="handle"/>
                         <field name="name"/>
                     </tree>
+                </form>
                 </field>
         </record>
 		<record id="property_type_form" model="ir.ui.view">
@@ -15,13 +19,12 @@
             <field name="model">property.type</field>
             <field name="arch" type="xml">
                 <form>
-                    <button name="offer_count" string="Stat" type="object" class="oe_stat_button"/>
                         <field name="property_id">
                             <tree string="Propiedades" edit="bottom">
                                 <field name="name"/>
                                 <field name="expected_price"/>
                                 <field name="active"/>
-                                <field name="state" widget="statusbar" statusbar_visible="sold, cancel"/>
+                                <field name="state" widget="statusbar" statusbar_visible="sold, cancel, available"/>
                             </tree>
                         </field>
                 </form>
@@ -31,7 +34,6 @@
             <field name="name">Type</field>
             <field name="res_model">property.offer</field>
             <field name="view_mode">tree,form</field>
-             <field name="domain">[('offer_ids', '=', active_id)]</field>
         </record>
 	</data>
 </odoo>
