@@ -15,36 +15,33 @@ class PropertyBalance(models.Model):
 		socio = partner_id.id
 		move_type = 'out_invoice'
 		#get selling price
-		selling_price = self.best_price 
+		selling_price = self.best_price
 		percentage = 0.06 #6%
-		administrative_fee = 100.00
+		fee = 100.00
 		#calculate the amount for each variable
 		price = selling_price * percentage
-		fee = administrative_fee
 		#invoice lines 
-		lines = [ 
-					{
+		line1 = {
 						'name': "Property Sale 6% of selling price",
 						'quantity': 1,
 						'price_unit': price,					
 						'account_id': 1
-					},
-					{
+				}
+		line2 = {
 						'name': "administrative Free",
 						'quantity': 1,
 						'price_unit': fee,
 						'account_id': 1
-					}
-				]
+				}
 		# create move
-		move = self.env['account.move'].write({
+		move = self.env['account.move'].create({
 				'move_type': move_type,
 				'partner_id': socio,
 				'journal_id': 1,
-				'invoice_line_ids': [(0, 0, line) for line in lines]
-			})
+				'invoice_line_ids': [(0, 0, line1), (0, 0, line2)
+				]
 
-		print('Creando factura....')
+			})
 		return sold
 
 

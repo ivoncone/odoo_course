@@ -12,7 +12,7 @@ class PropertyType(models.Model):
 	sequence = fields.Integer('Sequence', default=1)
 	property_id = fields.One2many('property.realstate', 'property_type_id', string='propiedades')
 	offer_ids = fields.One2many('property.offer', 'property_type_id', string='Ofertas')
-	offer_count = fields.Integer(string='Numero de ofertas', compute='_get_best_offer', store=True)
+	offer_count = fields.Integer(string='  Total de ofertas', compute='_get_best_offer', store=True)
 
 	
 	# compute offers count
@@ -21,7 +21,6 @@ class PropertyType(models.Model):
 		offers_with_same_type = self.env['property.offer'].search([('property_type_id', '=', tipo)])
 		count = len(offers_with_same_type)
 		self.write({'offer_count': count})
-		print(f"property_type_id {tipo}: {count} ofertas")
 
 	def show_offers(self):
 		self._get_offer_count()

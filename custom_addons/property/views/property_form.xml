@@ -7,7 +7,7 @@
                 <form string="nueva propiedad">
                     <header>
                         <button name="action_sold" string="SOLD" type="object" class="oe_highlight" attrs="{'invisible':[('state','=','sold')]}"/>
-                        <button name="action_cancel_property" string="CANCEL" type="object" class="oe_highlight" attrs="{'invisible': [('state','=','cancelled')]}"/>
+                        <button name="action_cancel_property" string="CANCEL" type="object" class="oe_highlight" attrs="{'invisible': [('state','=','cancel')]}"/>
                     </header>
                     <sheet>
                         <group name="group_top">

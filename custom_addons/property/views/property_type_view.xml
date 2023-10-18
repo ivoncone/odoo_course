@@ -16,7 +16,7 @@
                 <form>
                     <header>
                         <button name="show_offers" string="Ver ofertas de la propiedad" type="object" class="oe_stat_button"/>
-                        <field name="offer_count" string="total ofertas: "/>
+                        <field name="offer_count" widget="statinfo"/>
                     </header>
                         <field name="property_id">
                             <tree string="Propiedades" edit="bottom">
