@@ -1,48 +1,32 @@
 <odoo>
     <data>
-        <record id="available_search" model="ir.ui.view">
-            <field name="name">property.search</field>
-            <field name="model">property.realstate</field>
-            <field name="arch" type="xml">
-                <search string="propiedades available">
-                    <filter name="available" string="available" domain="[('state','=','available')]" help="ver propiedades disponibles"/>
-                    <field name="living_area" string="living area" filter_domain="['|',( 'living_area','>=',self)]"/>
-                </search>
-            </field>
-        </record>
         <record id="property_view" model="ir.ui.view">
             <field name="name">property.tree</field>
             <field name="model">property.realstate</field>
             <field name="arch" type="xml">
                 <tree string="Datos de propiedad" decoration-muted="state == 'sold'" decoration-success="best_price > 1">
                   <field name="name"/>
-                  <field name="last_seen"/>
-                  <field name="description"/>
                   <field name="postcode"/>
                   <field name="date_availability" optional="hide"/>
                   <field name="expected_price"/>
                   <field name="selling_price"/>
-                  <field name="best_price"/>
                   <field name="bedrooms"/>
+                  <field name="best_price"/>
                   <field name="tag_ids" widget="many2many_tags" options="{'color_field': 'color_id', 'no_quick_create': True}"/>
                   <field name="offers"/>
                   <field name="living_area"/>
-                  <field name="facades"/>
                   <field name="garage"/>
                   <field name="garden"/>
-                  <field name="garden_area"/>
-                  <field name="garden_orientation"/>
                   <field name="property_type_id"/>
                   <field name="state"/>
                 </tree>
             </field>
         </record>
-        <record id="action_property_form" model="ir.actions.act_window">
+        <record id="action_property_tree" model="ir.actions.act_window">
             <field name="name">Realstate Lista</field>
             <field name="res_model">property.realstate</field>
             <field name="view_mode">tree</field>
-            <field name="search_view_id" ref="property.available_search"/>
-            <field name="context">{'search_default_available': True, 'search_default_current': True}</field>
         </record>
+        <menuitem id="menu_property_tree" name="lista" action="property.action_property_tree"/>
     </data>
 </odoo>

@@ -80,11 +80,11 @@
             </field>
         </record>     
         <record id="action_property_form" model="ir.actions.act_window">
-            <field name="name">Realstate Form</field>
+            <field name="name">Todas las propidades disponibles</field>
             <field name="res_model">property.realstate</field>
             <field name="view_mode">tree,form,kanban</field>
         </record>
-        <menuitem id="menu_property_form" name="property" action="property.action_property_form"/>
+         <menuitem id="menu_property_form" name="properties" action="property.action_property_form"/>
     </data>
 </odoo>
 

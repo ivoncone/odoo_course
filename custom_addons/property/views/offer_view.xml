@@ -22,6 +22,6 @@
             <field name="view_mode">tree,form</field>
             <field name="domain">[('property_type_id', '=', active_id)]</field>
         </record>
-        <menuitem id="menu_offers" name="menu offers"/>
+        <menuitem id="menu_offers" name="ofertas"/>
     </data>
 </odoo>
