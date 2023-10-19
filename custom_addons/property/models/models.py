@@ -172,6 +172,7 @@ class RealState(models.Model):
 				raise ValidationError("You cannot delete a property that is new or has been cancelled.")
 
 
+	
 
 
 

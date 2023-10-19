@@ -5,6 +5,7 @@
     'depends': ['base_setup'],
     'application': True,
     'data': [
+        'security/ir.model.access.csv',
         'views/views.xml',
         'views/property_form.xml',
         'views/offer_form.xml',

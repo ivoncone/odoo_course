@@ -71,7 +71,7 @@
                                     <field name="selling_price"/>
                                 </div>
                                 <div>
-                                    <field name="tag_ids"/>
+                                    <field name="tag_ids" options="{'color_field': 'color_id', 'no_quick_create': True}"/>
                                 </div>
                         </div>
                     </t>

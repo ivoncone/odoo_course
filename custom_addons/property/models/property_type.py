@@ -24,12 +24,14 @@ class PropertyType(models.Model):
 
 	def show_offers(self):
 		self._get_offer_count()
+		tipo = self.name
+		domain = [('property_type_id', '=', tipo)]
 		return {
 			'type': 'ir.actions.act_window',
 			'name': 'Offer Count',
 			'res_model': 'property.offer',
 			'view_mode': 'tree',
-			'res_id': self.id,
+			'domain': domain
 		}
 
 

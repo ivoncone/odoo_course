@@ -38,7 +38,10 @@ class PropertyBalance(models.Model):
 				'move_type': move_type,
 				'partner_id': socio,
 				'journal_id': 1,
-				'invoice_line_ids': [(0, 0, line1), (0, 0, line2)
+				'invoice_line_ids': [ Command.create({
+					'name': 'property sellling price',
+					'price_unit': price
+					})
 				]
 
 			})
