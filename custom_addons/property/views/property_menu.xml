@@ -5,16 +5,7 @@
         <!-- MAIN MENU -->
         <menuitem name="properties"
             id="menu_property_form"
-            sequence="65"
-           />
-
-        <!-- HEADER: OFERTAS -->
-        <menuitem name="ofertas"
-            id="menu_offers"
             sequence="1"
-            parent="property.menu_property_form"
-
-        />
-
+           />
     </data>
 </odoo>

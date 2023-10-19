@@ -2,7 +2,7 @@
 {
     'name': "excursion",
     'version': '1.0',
-    'depends': ['base_setup'],
+    'depends': ['base_setup', 'property'],
     'data': [
         # 'security/ir.model.access.csv',
         'views/views.xml',
