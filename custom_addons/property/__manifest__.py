@@ -13,6 +13,7 @@
         'views/offer_view.xml',
         'views/property_type_view.xml',
         'views/property_tag_view.xml',
+        'views/property_available.xml'
     ],
     'installable': True,
     'license': 'LGPL-3',

@@ -84,12 +84,6 @@
             <field name="res_model">property.realstate</field>
             <field name="view_mode">tree,form,kanban</field>
         </record>
-        <menuitem id="menu_property" name="properties">
-            <menuitem id="menu_property_form" name="agregar">
-                <menuitem id="menu_property_action" action="property.action_property_form"/>
-            </menuitem>
-        </menuitem>
-
     </data>
 </odoo>
 
