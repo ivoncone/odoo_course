@@ -8,6 +8,7 @@
                     <header>
                         <button name="action_sold" string="SOLD" type="object" class="oe_highlight" attrs="{'invisible':[('state','=','sold')]}"/>
                         <button name="action_cancel_property" string="CANCEL" type="object" class="oe_highlight" attrs="{'invisible': [('state','=','cancel')]}"/>
+                        <button name="offers_per_property" string="Ver ofertas" type="object" class="oe_stat_button"/>
                     </header>
                     <sheet>
                         <group name="group_top">

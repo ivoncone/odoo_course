@@ -6,14 +6,14 @@
     'application': True,
     'data': [
         'security/ir.model.access.csv',
-        'views/property_menu.xml',
         'views/views.xml',
         'views/property_form.xml',
         'views/offer_form.xml',
         'views/offer_view.xml',
         'views/property_type_view.xml',
         'views/property_tag_view.xml',
-        'views/property_available.xml'
+        'views/property_available.xml',
+        'views/property_offers.xml'
     ],
     'installable': True,
     'license': 'LGPL-3',

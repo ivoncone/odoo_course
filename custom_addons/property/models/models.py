@@ -38,7 +38,7 @@ class RealState(models.Model):
 		index=True, tracking=True)
 	total_area = fields.Integer(string='Total area', compute='_get_total_area')
 	best_price = fields.Float(string='Mejor oferta', 
-			compute='_get_best_offer')
+			compute='_get_best_offer', store=True)
 	offers = fields.One2many('property.offer', 'id',
 			string='nuevas ofertas')
 	state = fields.Selection([
@@ -103,10 +103,14 @@ class RealState(models.Model):
 	@api.depends("offers.price")
 	def _get_best_offer(self):
 		for record in self:
-			if record.offers:
-				record.best_price = max(record.offers.mapped('price'))
+			offers = self.env['property.offer'].search([('property_id','=',self.id)])
+			if offers:
+				max_price = max(offers.mapped('price'))
+				record.best_price = max_price
+				print('este es el precio maximo'+str(max_price))
 			else:
 				record.best_price = 0.0
+			
 
 	#define action for sold and cancel
 	def action_cancel_property(self):
@@ -163,6 +167,11 @@ class RealState(models.Model):
 			if record.state not in ('new', 'cancelled'):
 				raise ValidationError("You cannot delete a property that is new or has been cancelled.")
 
+	
+	def offers_per_property(self):
+		action = self.env.ref('property.action_property_offers_tree').read()[0]
+		action.update({'context': {'search_default_property_id': self.id}})
+		return action
 
 	
 

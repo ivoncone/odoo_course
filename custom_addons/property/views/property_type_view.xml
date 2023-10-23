@@ -33,6 +33,7 @@
             <field name="name">Type</field>
             <field name="res_model">property.offer</field>
             <field name="view_mode">tree,form</field>
+            <field name="domain">[('property_type_id', '=', active_id)]</field>
         </record>
 	</data>
 </odoo>
