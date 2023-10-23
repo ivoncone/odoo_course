@@ -107,7 +107,6 @@ class RealState(models.Model):
 			if offers:
 				max_price = max(offers.mapped('price'))
 				record.best_price = max_price
-				print('este es el precio maximo'+str(max_price))
 			else:
 				record.best_price = 0.0
 			
@@ -117,7 +116,9 @@ class RealState(models.Model):
 		self.write({'state': 'cancel'})
 
 	def action_sold(self):
-		self.write({'state': 'sold'})
+		price = self.best_price
+		self.write({'state': 'sold',
+					'selling_price': price })
 
 
 	
@@ -147,7 +148,7 @@ class RealState(models.Model):
 		for record in self:
 			tag_ids = record.tag_ids.ids
 			if len(tag_ids) != len(set(tag_ids)):
-				raise ValidationError("You can repeat tags already existing.")
+				raise ValidationError("You cannot repeat tags already existing.")
 
 	# Define offer price can't be 90% lower than expected price
 	@api.constrains('selling_price')
