@@ -26,7 +26,7 @@ class Offer(models.Model):
 	@api.onchange('is_accepted', 'state')
 	def _set_is_accepted(self):
 		for record in self:
-			if record.state == 'Accepted' or 'A':
+			if record.state == 'A':
 				self.write({
 					'is_accepted': True
 					})

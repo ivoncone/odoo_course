@@ -14,7 +14,7 @@ class PropertyType(models.Model):
 	offer_ids = fields.One2many('property.offer', 'property_type_id', string='Ofertas')
 	offer_count = fields.Integer(string='  Total de ofertas', compute='_get_best_offer', store=True)
 
-	
+
 	# compute offers count
 	def _get_offer_count(self):
 		tipo = self.name

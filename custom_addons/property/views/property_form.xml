@@ -17,19 +17,19 @@
                                 <field name="postcode"/>
                                 <field name="date_availability"/>
                                 <field name="expected_price"/>
-                                <field name="selling_price"/>
+                                <field name="selling_price" readonly="1"/>
                                 <field name="best_price"/>
-                                <field name="bedrooms"/>
                             </group>
                             <group name="group_right">
+                                <field name="bedrooms"/>
                                 <field name="living_area"/>
                                 <field name="facades"/>
                                 <field name="garage"/>
                                 <field name="garden"/>
                                 <field name="garden_area" attrs="{'invisible': [('garden', '=', False)]}"/>
                                 <field name="garden_orientation" attrs="{'invisible': [('garden', '=', False)]}"/>
-                                <field name="property_type_id" widget="many2one"/>
                                 <field name="total_area"/>
+                                <field name="property_type_id"/>
                                 <field name="state"/>
                             </group>
                         </group>
@@ -41,11 +41,9 @@
                             </sheet>
                         </form>
                         <form>
-                            <sheet>
                                 <group name="group_top">
-                                    <field name="offers" widget="one2many"/>
+                                    <field name="offers"/>
                                 </group>
-                            </sheet>
                         </form>
                     </sheet>
                 </form>
@@ -84,6 +82,12 @@
             <field name="res_model">property.realstate</field>
             <field name="view_mode">tree,form,kanban</field>
         </record>
+
+        <menuitem id="menu_property" name="PROPERTY">
+            <menuitem id="menu_property_one" name="VER">
+                <menuitem id="menu_property_form" action="action_property_form"/>
+            </menuitem>
+        </menuitem>
     </data>
 </odoo>
 

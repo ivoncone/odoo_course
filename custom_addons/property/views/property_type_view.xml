@@ -15,7 +15,7 @@
             <field name="arch" type="xml">
                 <form>
                     <header>
-                        <button name="show_offers" string="Ver ofertas de la propiedad" type="object" class="oe_stat_button"/>
+                        <button name="show_offers" string="Ver ofertas por tipo" type="object" class="oe_stat_button"/>
                         <field name="offer_count" widget="statinfo"/>
                     </header>
                         <field name="property_id">

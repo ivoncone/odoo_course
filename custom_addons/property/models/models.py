@@ -34,7 +34,8 @@ class RealState(models.Model):
 		('E', 'East'), 
 		('W', 'West'), 
 		('S', 'South')], string='Garden orientation', attrs={'invisible': [('garden', '=', False)]})
-	property_type_id = fields.Many2one('property.type', string='tipo')
+	property_type_id = fields.Many2one('property.type', string='tipo de propiedad',  
+		index=True, tracking=True)
 	total_area = fields.Integer(string='Total area', compute='_get_total_area')
 	best_price = fields.Float(string='Mejor oferta', 
 			compute='_get_best_offer')
@@ -51,7 +52,6 @@ class RealState(models.Model):
 
 
 	_sql_constraints = [
-		('unique_property_type', 'UNIQUE (property_type_id)', 'Property type must be unique'),
 		('unique_tag_name', 'UNIQUE (tag_ids)', 'Tag must be unique'),
 	]
 
@@ -137,14 +137,6 @@ class RealState(models.Model):
 				if offer.price < 0:
 					raise ValidationError("offer must be positive.")
 
-	@api.constrains('property_type_id')
-	def _check_unique_property_type_id(self):
-		for record in self:
-			tipos = self.search([(
-				'property_type_id', '=', record.property_type_id.id
-				)])
-			if len(tipos) > 1:
-				raise ValidationError("This type of property already exists.")
 
 	@api.constrains('tag_ids')
 	def _check_unique_tag_ids(self):

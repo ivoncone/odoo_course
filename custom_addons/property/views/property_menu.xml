@@ -2,9 +2,15 @@
     <data>
 
         <!-- MAIN MENU -->
-        <menuitem name="properties"
-            id="menu_property_form"
-            sequence="1"
-           />
+        <menuitem name="menu"
+            id="main_menu"
+        />
+
+        <menuitem name="propiedades disponibles"
+            id="menu_property_available"
+            parent="main_menu"
+        />
+
+
     </data>
 </odoo>
