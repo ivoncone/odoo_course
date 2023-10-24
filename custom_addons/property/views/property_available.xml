@@ -33,12 +33,12 @@
             </field>
         </record>
         <record id="action_property_available" model="ir.actions.act_window">
-            <field name="name">Propiedades Available</field>
+            <field name="name">Propiedades Disponibles</field>
             <field name="res_model">property.realstate</field>
             <field name="view_mode">tree</field>
             <field name="search_view_id" ref="property.available_search"/>
             <field name="context">{'search_default_available': True, 'search_default_current': True}</field>
         </record>
-        <menuitem id="menu_property_available" parent="menu_property" name="available" action="action_property_available"/>
+        <menuitem id="menu_property_available" parent="menu_property" name="disponibles" action="action_property_available"/>
     </data>
 </odoo>

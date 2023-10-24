@@ -67,17 +67,6 @@ class RealState(models.Model):
 				record.garden_area = 0
 				record.garden_orientation = False
 
-	#define selling price
-	@api.onchange('selling_price', 'offers')
-	def _get_offer_state(self):
-		for record in self:
-			for offer in record.offers:
-				price_set = offer.price
-				if offer.state == 'A':
-					self.write({
-						'selling_price': price_set,
-						})
-
 	# define state offer received
 	@api.onchange('state', 'best_price')
 	def _set_state_received(self):

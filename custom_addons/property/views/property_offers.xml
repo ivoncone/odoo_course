@@ -17,7 +17,7 @@
                 </field>
         </record>
         <record id="action_property_offers_tree" model="ir.actions.act_window">
-            <field name="name">Show Offers per property</field>
+            <field name="name">Ofertas de la propiedad</field>
             <field name="res_model">property.offer</field>
             <field name="view_mode">tree</field>
             <field name="domain">[('property_id', '=', active_id)]</field>

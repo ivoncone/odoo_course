@@ -20,28 +20,23 @@ class PropertyBalance(models.Model):
 		fee = 100.00
 		#calculate the amount for each variable
 		price = selling_price * percentage
-		#invoice lines 
-		line1 = {
-						'name': "Property Sale 6% of selling price",
-						'quantity': 1,
-						'price_unit': price,					
-						'account_id': 1
-				}
-		line2 = {
-						'name': "administrative Free",
-						'quantity': 1,
-						'price_unit': fee,
-						'account_id': 1
-				}
+	
 		# create move
 		move = self.env['account.move'].create({
 				'move_type': move_type,
 				'partner_id': socio,
 				'journal_id': 1,
-				'invoice_line_ids': [ Command.create({
-					'name': 'property sellling price',
-					'price_unit': price
-					})
+				'invoice_line_ids': [ 
+					(0, 0, {
+						'name': 'property sellling price',
+						'quantity': 1,
+						'price_unit': price
+					}),
+					(0, 0, {
+						'name': "administrative Free",
+						'quantity': 1,
+						'price_unit': fee
+						})
 				]
 
 			})
