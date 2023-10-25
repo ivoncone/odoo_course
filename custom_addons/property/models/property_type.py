@@ -8,6 +8,10 @@ class PropertyType(models.Model):
 	_description = 'tipo de propiedad'
 	_order = 'name'
 
+	sql_constraints = [
+		('unique_type_name', 'UNIQUE (name)', 'Type must be unique'),
+	]
+
 	name = fields.Char()
 	sequence = fields.Integer('Sequence', default=1)
 	property_id = fields.One2many('property.realstate', 'property_type_id', string='propiedades')

@@ -42,9 +42,9 @@
                             </sheet>
                         </form>
                         <form>
-                                <group name="group_top">
-                                    <field name="offers"/>
-                                </group>
+                            <group name="group_top">
+                                <field name="offers"/>
+                            </group>
                         </form>
                     </sheet>
                 </form>

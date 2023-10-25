@@ -13,6 +13,7 @@ class RealState(models.Model):
 	name = fields.Char(required=True, default="Unknown")
 	user_id = fields.Many2one('res.users', 
 		index=True, tracking=True, default=lambda self: self.env.user)
+	buyer_id = fields.Many2one('res.partner', readonly=True, copy=False)
 	last_seen = fields.Datetime('Last Seen', 
 		default=lambda self: fields.Datetime.now())
 	description = fields.Text()
@@ -33,10 +34,10 @@ class RealState(models.Model):
 		('N', 'North'), 
 		('E', 'East'), 
 		('W', 'West'), 
-		('S', 'South')], string='Garden orientation', attrs={'invisible': [('garden', '=', False)]})
+		('S', 'South')], string='Orientacion del jardin', attrs={'invisible': [('garden', '=', False)]})
 	property_type_id = fields.Many2one('property.type', string='tipo de propiedad',  
 		index=True, tracking=True)
-	total_area = fields.Integer(string='Total area', compute='_get_total_area')
+	total_area = fields.Integer(string='Total area', compute='_get_total_area', store=True)
 	best_price = fields.Float(string='Mejor oferta', 
 			compute='_get_best_offer', store=True)
 	offers = fields.One2many('property.offer', 'id',
@@ -45,15 +46,11 @@ class RealState(models.Model):
 		('cancel', 'Cancelled'),
 		('sold', 'Sold'),
 		('new', 'New'),
+		('offer_accepted', 'OFFER_ACCEPTED'),
 		('received', 'Received'),
 		('available', 'Available')
 		], default='available')
 	active = fields.Boolean(default=True)
-
-
-	_sql_constraints = [
-		('unique_tag_name', 'UNIQUE (tag_ids)', 'Tag must be unique'),
-	]
 
 	
 	# on change apply to garden and orientation
@@ -106,8 +103,7 @@ class RealState(models.Model):
 
 	def action_sold(self):
 		price = self.best_price
-		self.write({'state': 'sold',
-					'selling_price': price })
+		self.write({'state': 'sold'})
 
 
 	

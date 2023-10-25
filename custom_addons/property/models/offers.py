@@ -1,7 +1,7 @@
 from odoo import fields, models, api
 from odoo.exceptions import ValidationError
 
-from datetime import timedelta, datetime
+from dateutil.relativedelta import relativedelta
 
 class Offer(models.Model):
 	_name = 'property.offer'
@@ -32,25 +32,29 @@ class Offer(models.Model):
 					})
 
 	# define date deadline expiration
+	@api.depends('create_date', 'validity')
 	def _get_deadline(self):
 		for record in self:
-			if record.create_date and record.validity:
-				record.date_deadline = record.create_date + timedelta(days=record.validity)
-			else:
-				record.date_deadline = False 
+			date = record.create_date.date() if record.create_date else fields.Date.today()
+			record.date_deadline = date + relativedelta(days=record.validity)
 
 	def _inverse_date_deadline(self):
 		for record in self:
-			if record.date_deadline and record.create_date:
-				delta = record.date_deadline - record.create_date
-				record.validity = delta.days
+			date = record.create_date.date() if record.create_date else fields.Date.today()
+			record.validity = (record.date_deadline - date).days
 
 	# define refuse and accept actions
 	def accept_offer(self):
-		self.write({'state': 'A',
-					'partner_id': self.partner_id,
-					'property_id': self.property_id,
-					'price': price})
+		if 'A' in self.mapped('property_id.offers.state'):
+			raise ValidationError('Una oferta ya ha sido aceptada')
+		self.write({'state': 'A'})
+		return self.mapped('property_id').write(
+				{
+				'state': 'offer_accepted',
+				'selling_price': self.price,
+				'buyer_id': self.partner_id.id,
+				}
+			)
 
 	def refuse(self):
 		self.write({'state': 'R'})
