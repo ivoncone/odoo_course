@@ -10,7 +10,7 @@ class PropertyBalance(models.Model):
 		sold = super(PropertyBalance, self).action_sold()
 		# get partner id from property balance
 		for record in self:
-			partner_id = record.buyer_id
+			partner_id = record.buyer_id.id
 			move_type = 'out_invoice'
 			#get selling price
 			selling_price = self.selling_price

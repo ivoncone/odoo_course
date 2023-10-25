@@ -43,12 +43,12 @@ class RealState(models.Model):
 	offers = fields.One2many('property.offer', 'id',
 			string='nuevas ofertas')
 	state = fields.Selection([
-		('cancel', 'Cancelled'),
-		('sold', 'Sold'),
-		('new', 'New'),
-		('offer_accepted', 'OFFER_ACCEPTED'),
-		('received', 'Received'),
-		('available', 'Available')
+		('cancel', 'Cancelada'),
+		('sold', 'Vendida'),
+		('new', 'Nueva'),
+		('offer_accepted', 'Aceptada'),
+		('received', 'Recibida'),
+		('available', 'Disponible')
 		], default='available')
 	active = fields.Boolean(default=True)
 

@@ -1,5 +1,6 @@
 from odoo import fields, models, api
 from odoo.exceptions import ValidationError
+from odoo.tools import float_compare
 
 from dateutil.relativedelta import relativedelta
 
@@ -43,6 +44,7 @@ class Offer(models.Model):
 			date = record.create_date.date() if record.create_date else fields.Date.today()
 			record.validity = (record.date_deadline - date).days
 
+
 	# define refuse and accept actions
 	def accept_offer(self):
 		if 'A' in self.mapped('property_id.offers.state'):
@@ -59,14 +61,19 @@ class Offer(models.Model):
 	def refuse(self):
 		self.write({'state': 'R'})
 
-	
-	@api.constrains('price')
-	def _create_offer(self):
-		for record in self:
-			offers = self.search([('id', '!=', record.id), ('property_id', '=', record.property_id.id)])
-			for offer in offers:
-				if offer.price > record.price: 
-					raise ValidationError("Oferta no puede ser menor a una ya ofertada.")
+
+	# CREATE METHOD
+	@api.model
+	def create(self, vals):
+		if vals.get('property_id') and vals.get('price'):
+			home = self.env['property.realstate'].browse(vals['property_id'])
+			if home.offers: 
+				max_price = max(home.mapped('offers.price'))
+				print('este es el precio maximo de todas las ofertas',max_price)
+				if float_compare(vals['price'], max_price, precision_rounding=0.01) <= 0:
+					raise ValidationError('No puedes agregar una oferta menor a una ya ofertada')
+			home.state = 'received'
+		return super().create(vals)
 	
 		
 

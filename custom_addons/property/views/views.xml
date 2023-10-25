@@ -4,7 +4,7 @@
             <field name="name">property.tree</field>
             <field name="model">property.realstate</field>
             <field name="arch" type="xml">
-                <tree string="Datos de propiedad" decoration-muted="selling_price > 1" decoration-success="best_price > 1" decoration-bf="state == 'received'">
+                <tree string="Datos de propiedad" decoration-muted="state == 'sold'" decoration-success="best_price > 1" decoration-bf="state == 'offer_accepted'">
                   <field name="name"/>
                   <field name="postcode"/>
                   <field name="date_availability" optional="hide"/>
