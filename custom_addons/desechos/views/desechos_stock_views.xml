@@ -1,0 +1,28 @@
+<odoo>
+    <data>
+        <record id="inherited_stock_scrap_form_view" model="ir.ui.view">
+            <field name="name">stock.scrap.inherited</field>
+            <field name="model">stock.scrap</field>
+            <field name="inherit_id" ref="stock.stock_scrap_form_view"/>
+            <field name="arch" type="xml">
+                <!-- find field description and add the field
+                     new_field after it -->
+                <xpath expr="//field[@name='product_id']" position="after">
+                  <field name="costo"/>
+                </xpath>
+            </field>
+        </record>
+         <record id="inherited_stock_scrap_tree_view" model="ir.ui.view">
+            <field name="name">stock.scrap.inherited</field>
+            <field name="model">stock.scrap</field>
+            <field name="inherit_id" ref="stock.stock_scrap_tree_view"/>
+            <field name="arch" type="xml">
+                <!-- find field description and add the field
+                     new_field after it -->
+                <xpath expr="//field[@name='product_id']" position="after">
+                  <field name="costo"/>
+                </xpath>
+            </field>
+        </record>
+    </data>
+</odoo>
