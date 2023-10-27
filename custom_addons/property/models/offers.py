@@ -47,16 +47,19 @@ class Offer(models.Model):
 
 	# define refuse and accept actions
 	def accept_offer(self):
-		if 'A' in self.mapped('property_id.offers.state'):
-			raise ValidationError('Una oferta ya ha sido aceptada')
-		self.write({'state': 'A'})
-		return self.mapped('property_id').write(
-				{
-				'state': 'offer_accepted',
-				'selling_price': self.price,
-				'buyer_id': self.partner_id.id,
-				}
-			)
+		for record in self:
+			offers_a = self.search([('property_id','=',record.property_id.id),
+					('state','=','A')])
+			if offers_a:
+				raise ValidationError('Una oferta ya ha sido aceptada')
+			record.state = 'A'
+			return self.mapped('property_id').write(
+					{
+					'state': 'offer_accepted',
+					'selling_price': self.price,
+					'buyer_id': self.partner_id.id,
+					}
+				)
 
 	def refuse(self):
 		self.write({'state': 'R'})
@@ -67,14 +70,13 @@ class Offer(models.Model):
 	def create(self, vals):
 		if vals.get('property_id') and vals.get('price'):
 			home = self.env['property.realstate'].browse(vals['property_id'])
-			if home.offers: 
-				max_price = max(home.mapped('offers.price'))
-				print('este es el precio maximo de todas las ofertas',max_price)
-				if float_compare(vals['price'], max_price, precision_rounding=0.01) <= 0:
-					raise ValidationError('No puedes agregar una oferta menor a una ya ofertada')
+			if home.offers:
+				e_offers = home.offers
+				max_price = max(e_offers.mapped('price'))
+				if vals['price'] < max_price:
+					raise ValidationError('NO Puede agregar una oferta menor a una ya ofertada.')
 			home.state = 'received'
-		return super().create(vals)
-	
+		return super(Offer, self).create(vals)	
 		
 
 	

@@ -64,14 +64,6 @@ class RealState(models.Model):
 				record.garden_area = 0
 				record.garden_orientation = False
 
-	# define state offer received
-	@api.onchange('state', 'best_price')
-	def _set_state_received(self):
-		for record in self:
-			if record.best_price > 1:
-				self.write({
-					'state': 'received'
-					})
 
 	# define available date from today to 3 month ahead
 	def _get_avaible_date(self):

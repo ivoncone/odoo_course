@@ -84,7 +84,7 @@
             <field name="view_mode">tree,form,kanban</field>
         </record>
 
-        <menuitem id="menu_property" name="PROPERTY">
+        <menuitem id="menu_property" name="PROPERTIES">
             <menuitem id="menu_property_one" name="VER">
                 <menuitem id="menu_property_form" action="action_property_form"/>
             </menuitem>

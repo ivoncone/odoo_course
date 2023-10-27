@@ -12,9 +12,9 @@
                         <field name="date_deadline"/>
                         <field name="is_accepted" invisible="1"/>
                         <field name="state" invisible="1"/>
-                        <button name="accept_offer" string="aceptar" type="object" icon="fa-check"/>
+                        <button name="accept_offer" string="aceptar" type="object" icon="fa-check" attrs="{'invisible': [('state','=','R')]}"/>
                         <button name="refuse" string="rechazar" type="object" icon="fa-times" attrs="{'invisible': [('state','=','A')]}"/>
-                        <field name="property_type_id"/>
+                        <field name="property_type_id" invisible="1"/>
                     </tree>
                 </field>
         </record>
