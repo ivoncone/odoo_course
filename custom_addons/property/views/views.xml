@@ -13,7 +13,7 @@
                   <field name="bedrooms"/>
                   <field name="best_price"/>
                   <field name="tag_ids" widget="many2many_tags" options="{'color_field': 'color_id', 'no_quick_create': True}"/>
-                  <field name="offers"/>
+                  <field name="offers" widget="one2many"/>
                   <field name="living_area"/>
                   <field name="garage"/>
                   <field name="garden"/>

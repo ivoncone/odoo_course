@@ -42,9 +42,11 @@
                             </sheet>
                         </form>
                         <form>
-                            <group name="group_top">
-                                <field name="offers"/>
-                            </group>
+                            <sheet>
+                                <group name="group_top">
+                                    <field name="offers" widget="one2many"/>
+                                </group>
+                            </sheet>
                         </form>
                     </sheet>
                 </form>

@@ -32,7 +32,7 @@ class PropertyType(models.Model):
 		domain = [('property_type_id', '=', tipo)]
 		return {
 			'type': 'ir.actions.act_window',
-			'name': 'Offer Count',
+			'name': 'Total de ofertas',
 			'res_model': 'property.offer',
 			'view_mode': 'tree',
 			'domain': domain

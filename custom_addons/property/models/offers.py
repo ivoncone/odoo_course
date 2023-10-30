@@ -73,7 +73,7 @@ class Offer(models.Model):
 			if home.offers:
 				e_offers = home.offers
 				max_price = max(e_offers.mapped('price'))
-				if vals['price'] < max_price:
+				if float_compare(vals['price'], max_price, precision_rounding=0.01) <= 0:
 					raise ValidationError('NO Puede agregar una oferta menor a una ya ofertada.')
 			home.state = 'received'
 		return super(Offer, self).create(vals)	

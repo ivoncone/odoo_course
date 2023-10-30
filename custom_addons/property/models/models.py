@@ -40,8 +40,7 @@ class RealState(models.Model):
 	total_area = fields.Integer(string='Total area', compute='_get_total_area', store=True)
 	best_price = fields.Float(string='Mejor oferta', 
 			compute='_get_best_offer', store=True)
-	offers = fields.One2many('property.offer', 'id',
-			string='nuevas ofertas')
+	offers = fields.One2many('property.offer', 'property_id', string='nuevas ofertas')
 	state = fields.Selection([
 		('cancel', 'Cancelada'),
 		('sold', 'Vendida'),
